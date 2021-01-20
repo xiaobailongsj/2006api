@@ -1,7 +1,7 @@
 <?php
 
-$account=$_POST['account'];
-$pwd = $_POST['pwd'];
+$account=empty($_POST['account'])?'':$_POST['account'];
+$pwd = empty($_POST['pwd'])?'':$_POST['pwd'];
 $pdo = new PDO("mysql:host=127.0.0.1;dbname=2006", 'root', 'root');
 $sql = "select * from `user` where account = '$account'";
 $res = $pdo->query($sql);
@@ -24,6 +24,10 @@ if($data){
         exit;
     }
 }
-echo json_encode();
+$response1=[
+      'errno'=>400001,
+      'mgs'=>"账号或密码有误",
+];
+echo json_encode($response1);
 exit;
 
